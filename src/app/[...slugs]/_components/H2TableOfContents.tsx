@@ -37,7 +37,7 @@ const H2TableOfContents = ({ toc }: { toc: Toc }) => {
   return (
     <section
       aria-labelledby={headingId}
-      className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/10 p-6 text-muted-foreground shadow-[0_35px_60px_-15px_rgba(15,23,42,0.85)]">
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/10 p-6 text-muted-foreground shadow-[0_35px_60px_-15px_rgba(15,23,42,0.85)] max-w-[220px] w-full mx-auto">
       <div className="pointer-events-none absolute inset-x-6 top-0 h-2 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-60" />
       <div className="flex flex-col gap-2">
         <p className="text-[11px] uppercase tracking-[0.45em] text-muted-foreground/60">
