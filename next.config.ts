@@ -10,7 +10,12 @@ const withMDX = createMDX({
   extension: /\.(md|mdx)$/,
   options: {
     remarkPlugins: ["remark-frontmatter", "remark-mdx-frontmatter"],
-    rehypePlugins: [["rehype-pretty-code", {}]],
+    rehypePlugins: [
+      ["rehype-pretty-code", {}],
+      ["rehype-slug", {}],
+      ["@stefanprobst/rehype-extract-toc", {}],
+      ["@stefanprobst/rehype-extract-toc/mdx", {}],
+    ],
   },
 });
 

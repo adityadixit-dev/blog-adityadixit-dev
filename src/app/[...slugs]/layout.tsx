@@ -3,9 +3,5 @@ type SlugsLayoutProps = {
 };
 
 export default function SlugsLayout({ children }: SlugsLayoutProps) {
-  return (
-    <div className="">
-      <main className="">{children}</main>
-    </div>
-  );
+  return <main className="h-full no-scrollbar">{children}</main>;
 }

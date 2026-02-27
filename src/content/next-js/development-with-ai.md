@@ -148,3 +148,13 @@ const { default: Post, frontmatter } = await import(`@/content/${slugPath}.md`);
 ```bash caption="Dont forget to add the plugin to next.config.ts"
 npm install rehype-pretty-code shiki
 ```
+
+## Rehype Slug and Table of Contents
+
+- [Rehype Slug](https://github.com/rehypejs/rehype-slug)
+- [Rehype Extract TOC](https://github.com/stefanprobst/rehype-extract-toc)
+
+```bash caption="Install Rehype Slug and Rehype Extract TOC"
+npm install rehype-slug
+npm i @stefanprobst/rehype-extract-toc
+```

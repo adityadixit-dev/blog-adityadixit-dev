@@ -35,11 +35,11 @@ export default function RootLayout({
       lang="en"
       className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-y-auto h-screen ">
         <div>
           <Providers>
             <SiteHeader />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 h-full no-scrollbar">{children}</main>
           </Providers>
         </div>
       </body>

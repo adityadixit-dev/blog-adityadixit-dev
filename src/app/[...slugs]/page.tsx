@@ -9,6 +9,7 @@ import {
   normalizeTag,
   type PostMetadataWithSlug,
 } from "@/lib/content/get-all-post-metadata";
+import H2TableOfContents from "./_components/H2TableOfContents";
 
 type SlugsPageParams = {
   slugs: string[];
@@ -40,15 +41,17 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
     const frontmatter = (postModule.frontmatter ??
       postModule.metadata ??
       {}) as PostMetadataWithSlug["metadata"];
+    const tableOfContents = postModule?.tableOfContents;
+
     const dateDisplay = formatPostDate(frontmatter.date);
     const sidebarTags = Array.isArray(frontmatter.tags)
       ? frontmatter.tags.map((tag) => normalizeTag(String(tag))).filter(Boolean)
       : [];
 
     return (
-      <article className="mx-auto grid max-w-6xl gap-10 px-4 py-8 lg:grid-cols-[3fr_1fr]">
-        <section className="prose dark:prose-invert space-y-10">
-          <div className="space-y-4 border-b border-white/10 pb-6">
+      <article className="mx-auto grid max-w-6xl gap-10 px-4 py-8 lg:grid-cols-[3fr_1fr] h-full ">
+        <section className="prose dark:prose-invert space-y-10  no-scrollbar">
+          <div className="space-y-4 border-b border-white/10 pb-6 ">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground/70">
               {dateDisplay}
             </p>
@@ -84,9 +87,7 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
             )}
           </section>
 
-          <section>
-            <h3>On This Page</h3>
-          </section>
+          <H2TableOfContents toc={tableOfContents} />
         </aside>
       </article>
     );

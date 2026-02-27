@@ -124,11 +124,28 @@
   body {
     background-color: var(--card);
     background-image:
-      radial-gradient(circle at 25% 15%, rgba(59, 130, 246, 0.18), transparent 35%),
-      radial-gradient(circle at 75% 10%, rgba(2, 132, 199, 0.2), transparent 40%),
-      radial-gradient(circle at 50% 75%, rgba(14, 165, 233, 0.12), transparent 30%),
+      radial-gradient(
+        circle at 25% 15%,
+        rgba(59, 130, 246, 0.18),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 75% 10%,
+        rgba(2, 132, 199, 0.2),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 50% 75%,
+        rgba(14, 165, 233, 0.12),
+        transparent 30%
+      ),
       linear-gradient(180deg, rgba(5, 5, 5, 0.6), rgba(5, 5, 5, 0.8));
     @apply text-foreground;
     background-attachment: fixed;
   }
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+  @apply overflow-y-auto;
 }
