@@ -117,3 +117,34 @@ export function useMDXComponents(): MDXComponents {
   return components;
 }
 ```
+
+## MDX plugins
+
+```bash caption="Install remark-frontmatter amd remark-mdx-frontmatter"
+npm install remark-frontmatter remark-mdx-frontmatter
+```
+
+- Add plugin to `next.config.ts` file. Note the correct method depending on if you are using [Turbopack](https://nextjs.org/docs/app/guides/mdx#using-plugins-with-turbopack)
+
+```ts title="next.config.ts" caption="Add frontmatter plugins"
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: ["remark-frontmatter", "remark-mdx-frontmatter"],
+    rehypePlugins: [],
+  },
+});
+```
+
+- We use `remark-mdx-frontmatter` so that we can easily import the metadata
+
+```tsx
+const { default: Post, frontmatter } = await import(`@/content/${slugPath}.md`);
+```
+
+- Make code blocks look good with [Rehype Pretty Code](https://rehype-pretty.pages.dev/#installation)
+
+```bash caption="Dont forget to add the plugin to next.config.ts"
+npm install rehype-pretty-code shiki
+```

@@ -10,7 +10,11 @@ type SlugsPageProps = {
 export default async function SlugsPage({ params }: SlugsPageProps) {
   const { slugs } = await params;
   const slugPath = slugs.join("/");
-  const { default: Post } = await import(`@/content/${slugPath}.md`);
+  const { default: Post, frontmatter } = await import(
+    `@/content/${slugPath}.md`
+  );
+
+  console.log(frontmatter);
 
   return (
     <article className="prose dark:prose-invert mx-auto py-8">
