@@ -158,3 +158,80 @@ npm install rehype-pretty-code shiki
 npm install rehype-slug
 npm i @stefanprobst/rehype-extract-toc
 ```
+
+```ts title="next.config.ts" caption="Add rehypePlugins"
+options: {
+    remarkPlugins: ["remark-frontmatter", "remark-mdx-frontmatter"],
+    rehypePlugins: [
+      ["rehype-pretty-code", {}],
+      ["rehype-slug", {}],
+      ["@stefanprobst/rehype-extract-toc", {}],
+      ["@stefanprobst/rehype-extract-toc/mdx", {}],
+    ],
+}
+```
+
+## Copy to Clipboard Button
+
+- `shiki` copy to clipboard seems to result in [errors](https://github.com/rehype-pretty/rehype-pretty-code/issues/235)
+- Create a custom component in `src/components/helpers/Pre.tsx`
+
+```tsx title="Pre.tsx" caption="Add A helper component which we will add to mdx-components.tsx later"
+"use client";
+
+import { Check, Clipboard } from "lucide-react";
+import { DetailedHTMLProps, HTMLAttributes, useRef, useState } from "react";
+import { Button } from "../ui/button";
+
+export default function Pre({
+  children,
+  ...props
+}: DetailedHTMLProps<HTMLAttributes<HTMLPreElement>, HTMLPreElement>) {
+  const [isCopied, setIsCopied] = useState(false);
+  const preRef = useRef<HTMLPreElement>(null);
+
+  const handleClickCopy = async () => {
+    const code = preRef.current?.textContent;
+
+    if (code) {
+      await navigator.clipboard.writeText(code);
+      setIsCopied(true);
+
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+    }
+  };
+
+  return (
+    <pre ref={preRef} {...props} className="relative">
+      <Button
+        size="icon-lg"
+        disabled={isCopied}
+        onClick={handleClickCopy}
+        className="absolute right-4 size-8 hover:cursor-pointer"
+        variant="outline"
+      >
+        {isCopied ? <Check /> : <Clipboard />}
+      </Button>
+      {children}
+    </pre>
+  );
+}
+```
+
+- Modify the `mdx-components.tsx` file to use the `Pre` component defined above
+
+```tsx title="mdx-components.tsx"
+import type { MDXComponents } from "mdx/types";
+import Pre from "./components/helpers/Pre";
+
+const components: MDXComponents = {};
+
+export function useMDXComponents(): MDXComponents {
+  return {
+    pre: (props) => <Pre {...props} />,
+    ...components,
+  };
+}
+```
