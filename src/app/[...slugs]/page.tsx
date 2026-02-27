@@ -63,8 +63,8 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
           </div>
           <Post />
         </section>
-        <aside className="lg:sticky lg:top-12 self-start">
-          <section className="space-y-4 rounded-2xl border border-white/10 bg-card/60 p-6 text-muted-foreground max-w-[220px]">
+        <aside className="lg:sticky lg:top-12 self-start flex flex-col items-center gap-6">
+          <section className="w-full space-y-4 rounded-2xl border border-white/10 bg-card/60 p-6 text-muted-foreground max-w-[220px]">
             <p className="text-xs uppercase tracking-[0.45em] text-muted-foreground/60">
               Tags
             </p>
