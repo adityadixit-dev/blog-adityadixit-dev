@@ -22,17 +22,46 @@ const H2TableOfContents = ({ toc }: { toc: Toc }) => {
       continue;
     }
     for (const currH2 of h1.children) {
-      h2s.push({ id: currH2.id ?? "", value: currH2.value });
+      if (currH2.id) {
+        h2s.push({ id: currH2.id, value: currH2.value });
+      }
     }
   }
 
+  if (!h2s.length) {
+    return null;
+  }
+
+  const headingId = "toc-heading";
+
   return (
-    <section>
-      <h3>On This Page</h3>
-      <ul>
+    <section
+      aria-labelledby={headingId}
+      className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/10 p-6 text-muted-foreground shadow-[0_35px_60px_-15px_rgba(15,23,42,0.85)]">
+      <div className="pointer-events-none absolute inset-x-6 top-0 h-2 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-60" />
+      <div className="flex flex-col gap-2">
+        <p className="text-[11px] uppercase tracking-[0.45em] text-muted-foreground/60">
+          Quick Navigation
+        </p>
+        <h3 id={headingId} className="font-display text-lg leading-tight text-white">
+          On This Page
+        </h3>
+        <p className="text-xs text-muted-foreground/70">
+          Skip ahead to any major section with a single tap.
+        </p>
+      </div>
+
+      <ul className="mt-4 space-y-2 text-sm">
         {h2s.map((h2) => (
           <li key={h2.id}>
-            <Link href={`#${h2.id}`}>{h2.value}</Link>
+            <Link
+              href={`#${h2.id}`}
+              className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-left text-sm font-medium text-white/80 transition hover:border-white/40 hover:bg-white/10">
+              <span>{h2.value}</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-white/50">
+                Jump
+              </span>
+            </Link>
           </li>
         ))}
       </ul>
