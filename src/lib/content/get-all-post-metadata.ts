@@ -14,6 +14,7 @@ export type PostMetadataWithSlug = {
   readonly slugSegments: readonly string[];
   readonly metadata: PostFrontmatter;
   readonly normalizedTags: readonly string[];
+  readonly sourcePath: string;
 };
 
 const markdownExtensions = [".md", ".mdx"] as const;
@@ -85,6 +86,7 @@ export async function getAllPostMetadata(
         slugSegments: normalizeSlugSegments(bareSlug),
         metadata: frontmatter,
         normalizedTags: tags,
+        sourcePath: relativePath,
       } as PostMetadataWithSlug;
     }),
   );
