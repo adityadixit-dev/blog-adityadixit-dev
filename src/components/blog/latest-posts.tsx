@@ -8,7 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { PostMetadataWithSlug } from "@/lib/content/get-all-post-metadata";
+import {
+  normalizeTag,
+  type PostMetadataWithSlug,
+} from "@/lib/content/get-all-post-metadata";
 
 type LatestPostsProps = {
   readonly posts: PostMetadataWithSlug[];
@@ -92,14 +95,18 @@ export default function LatestPosts({ posts }: LatestPostsProps) {
               ) : null}
               {post.metadata.tags?.length ? (
                 <CardContent className="flex flex-wrap gap-2">
-                  {post.metadata.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  {post.metadata.tags.map((tag) => {
+                    const normalized = normalizeTag(String(tag));
+                    return (
+                      <Link
+                        key={normalized}
+                        href={`/tag/${encodeURIComponent(normalized)}`}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-muted-foreground transition hover:border-white hover:text-white"
+                      >
+                        {tag}
+                      </Link>
+                    );
+                  })}
                 </CardContent>
               ) : null}
               <CardFooter>
