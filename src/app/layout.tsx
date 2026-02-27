@@ -38,8 +38,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col overflow-y-auto h-screen ">
         <div>
           <Providers>
-            <SiteHeader />
-            <main className="flex-1 h-full no-scrollbar">{children}</main>
+            <div className="flex flex-col justify-between h-full">
+              <SiteHeader />
+              <main className="flex-1 h-full no-scrollbar">{children}</main>
+            </div>
           </Providers>
         </div>
       </body>

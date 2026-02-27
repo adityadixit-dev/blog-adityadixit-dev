@@ -63,7 +63,8 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
           </div>
           <Post />
         </section>
-        <aside className="lg:sticky lg:top-12 self-start flex flex-col items-center gap-6">
+        <aside className="lg:sticky lg:top-12 self-start flex flex-col items-center gap-6 border-l-2">
+          <H2TableOfContents toc={tableOfContents} />
           <section className="w-full space-y-4 rounded-2xl border border-white/10 bg-card/60 p-6 text-muted-foreground max-w-[220px]">
             <p className="text-xs uppercase tracking-[0.45em] text-muted-foreground/60">
               Tags
@@ -86,8 +87,6 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
               </p>
             )}
           </section>
-
-          <H2TableOfContents toc={tableOfContents} />
         </aside>
       </article>
     );
