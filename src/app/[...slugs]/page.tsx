@@ -49,8 +49,8 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
       : [];
 
     return (
-      <article className="mx-auto grid max-w-6xl gap-10 px-4 py-8 lg:grid-cols-[3fr_1fr] h-full ">
-        <section className="prose dark:prose-invert space-y-10  no-scrollbar">
+      <article className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl gap-10 px-4 py-8 lg:grid-cols-[3fr_1fr] overflow-hidden">
+        <section className="prose dark:prose-invert space-y-10 no-scrollbar lg:max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden rounded-2xl px-1 py-2">
           <div className="space-y-4 border-b border-white/10 pb-6 ">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground/70">
               {dateDisplay}
@@ -63,8 +63,8 @@ export default async function SlugsPage({ params }: SlugsPageProps) {
           </div>
           <Post />
         </section>
-        <aside>
-          <section className="self-start space-y-4 rounded-2xl border border-white/10 bg-card/60 p-6 text-muted-foreground max-w-[220px]">
+        <aside className="lg:sticky lg:top-12 self-start">
+          <section className="space-y-4 rounded-2xl border border-white/10 bg-card/60 p-6 text-muted-foreground max-w-[220px]">
             <p className="text-xs uppercase tracking-[0.45em] text-muted-foreground/60">
               Tags
             </p>
