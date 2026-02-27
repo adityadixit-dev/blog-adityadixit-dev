@@ -12,10 +12,10 @@ This version has breaking changes — APIs, conventions, tooling, and file layou
 
 ## Repository Snapshot
 
-- App directory entry: `src/app/layout.tsx` with Geist fonts wired via `next/font/google` and `metadata` exported at the module level.
-- Global styling leans on Tailwind 4 macros (`@import "tailwindcss"`, `@theme inline`) and CSS custom properties for color / font tokens.
-- No opinionated state-management library; keep components self-sufficient and let's prefer server components until complexity demands client behavior, and remember `public/` holds favicon and static assets so keep imagery lightweight.
-- Content lives under `src/content`, with markdown guiding larger essays; treat it as publication material rather than component logic.
+- App directory entry: `src/app/layout.tsx` with Geist fonts wired via `next/font/google`, the sticky `SiteHeader`, and `viewport`/`metadata` exports that drive the dark experience.
+- The landing page now renders a mission-driven hero plus a modular posts grid inside `src/app/page.tsx`, leveraging the card primitives (`src/components/ui/card.tsx`) and a static gradient that spans the viewport from `globals.css`.
+- Global styling leans on Tailwind 4 macros (`@import "tailwindcss"`, `@theme inline`) and CSS custom properties for color / font tokens; body now uses the same layered background as the cards so the whole site matches the hero treatment.
+- Content lives under `src/content`, with markdown guiding larger essays; a new helper at `src/lib/content/get-all-post-metadata.ts` recursively loads every markdown frontmatter and sorts it so pages can easily consume title/date/summary/tags plus slug data.
 
 ## NextJS AI Agent Stack
 
@@ -23,6 +23,13 @@ This version has breaking changes — APIs, conventions, tooling, and file layou
 - The referenced tech stack is NextJS, Tailwind Typography, ShadCn, and Drizzle ORM; keep those dependencies current and align new features with their patterns.
 - Keep a `.mcp.json` pointing at `next-devtools-mcp` so the MCP server described in the content can launch whenever you need the AI agent experience locally.
 - Mirror that setup in `opencode.json`; a `next-devtools` MCP entry (`npx -y next-devtools-mcp@latest`) ensures OpenCode can start the DevTools server automatically alongside the `shadcn` MCP task.
+
+## Recent Additions
+
+- `PageHero` and `LatestPosts` components (plus the existing card primitives) deliver a modular landing experience that features CTA, mission copy, and metadata-driven cards with every tag.
+- The sticky `SiteHeader` now lives in `src/components/layout/header.tsx`, keeping nav live across routes.
+- `getAllPostMetadata` centralizes markdown ingestion: it resolves every `.md`/`.mdx` file, pulls frontmatter, normalizes slugs, and sorts by date so other components can derive latest posts without touching `fs` themselves.
+- Root-level CSS now layers the same gradients used by the cards across the entire viewport, and layout.tsx renders `<main>` plus the header so the sticky bar coexists with future pages.
 
 ## Environment Setup
 

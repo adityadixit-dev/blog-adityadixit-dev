@@ -1,13 +1,13 @@
 ---
-title: "Setup NextJS for use with AI Agents"
+title: "NextJS for use with AI Agents"
 date: "25-Feb-2026"
 summary: "In this we create a brief skeleton of a NextJS project to be used alongside OpenCode and CodeCompanion(nvim)"
 tags: ["nextjs", "opencode", "nvim", "codecompanion", "drizzle"]
 ---
 
-# NextJS Stack for use with AI Agents
+# NextJS for use with AI Agents
 
-## Tech Stack
+## Stack used
 
 - [NextJS](https://nextjs.org/)
 - [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography)

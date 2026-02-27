@@ -13,6 +13,7 @@ export type PostMetadataWithSlug = {
   readonly slug: string;
   readonly slugSegments: readonly string[];
   readonly metadata: PostFrontmatter;
+  readonly normalizedTags: readonly string[];
 };
 
 const markdownExtensions = [".md", ".mdx"] as const;
@@ -43,6 +44,10 @@ function normalizeSlugSegments(slug: string): string[] {
   return slug.split("/").filter((segment) => segment.length > 0);
 }
 
+export function normalizeTag(tag: string): string {
+  return tag.trim().toLowerCase().replace(/\s+/g, "-");
+}
+
 function dateToTimestamp(value: unknown): number {
   if (value instanceof Date) {
     return value.getTime();
@@ -69,13 +74,17 @@ export async function getAllPostMetadata(
         .split(path.sep)
         .join("/");
       const bareSlug = relativePath.replace(/\.[^.]+$/, "");
-      const module = await import(`@/content/${relativePath}`);
-      const frontmatter = (module.frontmatter ?? module.metadata ?? {}) as PostFrontmatter;
+      const postModule = await import(`@/content/${relativePath}`);
+      const frontmatter = (postModule.frontmatter ?? postModule.metadata ?? {}) as PostFrontmatter;
+      const tags = Array.isArray(frontmatter.tags)
+        ? frontmatter.tags.map((tag) => normalizeTag(String(tag)))
+        : [];
 
       return {
         slug: bareSlug,
         slugSegments: normalizeSlugSegments(bareSlug),
         metadata: frontmatter,
+        normalizedTags: tags,
       } as PostMetadataWithSlug;
     }),
   );
