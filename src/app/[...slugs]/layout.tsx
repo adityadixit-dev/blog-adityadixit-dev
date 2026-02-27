@@ -1,10 +1,6 @@
-import React from "react";
-import type { ReactNode } from "react";
-
-interface SlugsLayoutProps {
-  readonly children: ReactNode;
-  readonly params: { slugs?: string[] };
-}
+type SlugsLayoutProps = {
+  children: React.ReactNode;
+};
 
 export default function SlugsLayout({ children }: SlugsLayoutProps) {
   return (
@@ -13,5 +9,3 @@ export default function SlugsLayout({ children }: SlugsLayoutProps) {
     </div>
   );
 }
-
-
